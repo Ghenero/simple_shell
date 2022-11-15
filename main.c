@@ -25,22 +25,20 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 
 	while (exit)
 	{
-		write(STDOUT_FILENO, "~$ ", 3);
+		write(STDOUT_FILENO, "$ ", 2);
 		str = read_line();
+		if (!str)
+		{
+			free(str);
+			return (0);
+		}
 		/*printf("%s", str);*/
 		/*handle_tokens(str);*/
 		tokens = get_tokens(str);
-		/*
-		 *while (tokens[i] != NULL)
-		 *{
-		 *	printf("%s.\n", tokens[i]);
-		 *	i++;
-		 *}
-		 *i = 0;
-		 */
 		if (tokens[0] != NULL)
 			exit = token_oven(tokens);
+		free(str);
+		free(tokens);
 	}
-	free(str);
 	return (0);
 }

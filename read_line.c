@@ -9,9 +9,11 @@ char *read_line()
 {
 	size_t len;
 	char *buff = NULL;
-	int i;
+	int i, response;
 
-	getline(&buff, &len, stdin);
+	response = getline(&buff, &len, stdin);
+	if (response == -1)
+		return (NULL);
 	for (i = 0; buff[i] != '\n'; i++)
 		;
 	buff[i + 1] = '\0';
