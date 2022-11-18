@@ -12,6 +12,7 @@ char *read_line()
 	int i, response;
 
 	response = getline(&buff, &len, stdin);
+	/*set response condition and output*/
 	if (response == -1)
 		return (NULL);
 	for (i = 0; buff[i] != '\n'; i++)
