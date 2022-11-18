@@ -13,4 +13,4 @@ typedef struct alias
 	char *real_name;
 } alias;
 
-#endif
+#endif /*_STRUCTS_H*/

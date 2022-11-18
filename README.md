@@ -61,5 +61,4 @@ LIST OF ALLOWED FUNCTIONS AND SYSTEM CALLS
 
 - write (man 2 write)
 
-
-
+-Demonstrate proper understanding of c programming language and its use cases
