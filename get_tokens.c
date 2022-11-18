@@ -13,6 +13,7 @@ char **get_tokens(char *src)
 
 	tokens = malloc(sizeof(char *) * 20);
 	while (src[counter] != '\n')
+	/*set condition for token*/
 	{
 		if (counter > 0)
 		{
