@@ -26,6 +26,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 	while (exit)
 	{
 		write(STDOUT_FILENO, "$ ", 2);
+		/*display the standard output*/
 		str = read_line();
 		if (!str)
 		{
@@ -39,6 +40,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			exit = token_oven(tokens);
 		free(str);
 		free(tokens);
+		/*free the memory when exited*/
 	}
 	return (0);
 }
