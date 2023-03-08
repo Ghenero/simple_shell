@@ -1,46 +1,21 @@
-#include "main.h"
+#include "global_header.h"
 
 /**
- * main - implement simple commmand line interpreter
- * @ac: length of arguments passed
- * @av: list of parsed argument
- * Return: Always 0.
+ *Main - Main entry point to program.
+ *@argc: Argument count.
+ *@argv: Argument vector.
+ *Return: status code
  */
-
-int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
+int main(int argc, char *argv[])
 {
-	char *str = NULL;
-	int exit = 1;
-	char **tokens;
 
-	/*printf("argc: %i\n argv[0]: %s", argc, argv[0]);*/
+	if (argc > 0 && argv[0] != NULL)
+		/* Run loop non-interactively. */
+		hsh_loop();
+	else
+		/* Run command loop. */
+		hsh_loop();
 
-	if (!isatty(STDIN_FILENO))
-	{
-		/* perform operation with str value*/
-		str = read_line();
-		printf("%s", str);
-		return (0);
-	}
-
-	while (exit)
-	{
-		write(STDOUT_FILENO, "$ ", 2);
-		/*display the standard output*/
-		str = read_line();
-		if (!str)
-		{
-			free(str);
-			return (0);
-		}
-		/*printf("%s", str);*/
-		/*handle_tokens(str);*/
-		tokens = get_tokens(str);
-		if (tokens[0] != NULL)
-			exit = token_oven(tokens);
-		free(str);
-		free(tokens);
-		/*free the memory when exited*/
-	}
-	return (0);
+	/* Perform any shutdown/cleanup. */
+	return (EXIT_SUCCESS);
 }
