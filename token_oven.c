@@ -103,7 +103,8 @@ char **get_tokens(char *line)
 }
 
 /**
- *hsh_loop - Loop getting input and executing it.
+ * life_cycle - Loop getting input and executing it.
+ * Return: void
  */
 void life_cycle(void)
 {

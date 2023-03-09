@@ -16,27 +16,6 @@ int built_in_count(void)
 
 
 /**
- * cmd_cd - function for cd command
- * @args: List of args.  args[0] is "cd".  args[1] is the directory.
- * Return: Always returns 1, to continue executing.
-*/
-int cmd_cd(char **args)
-{
-	if (args[1] == NULL)
-	{
-		fprintf(stderr, "cd: expected argument to \"cd\"\n");
-	}
-	else
-	{
-		if (chdir(args[1]) != 0)
-		{
-			perror("cmd");
-		}
-	}
-	return (1);
-}
-
-/**
  * cmd_help - Builtin command: print help.
  * @args: List of args.
  * Return: Always returns 1
@@ -70,6 +49,28 @@ int cmd_exit(char **args)
 	else
 		return (0);
 }
+
+/**
+ * cmd_cd - function for cd command
+ * @args: List of args.  args[0] is "cd".  args[1] is the directory.
+ * Return: Always returns 1, to continue executing.
+*/
+int cmd_cd(char **args)
+{
+	if (args[1] == NULL)
+	{
+		fprintf(stderr, "cd: expected argument to \"cd\"\n");
+	}
+	else
+	{
+		if (chdir(args[1]) != 0)
+		{
+			perror("cmd");
+		}
+	}
+	return (1);
+}
+
 
 /**
  * cmd_execute - Execute shell built-in or launch program
