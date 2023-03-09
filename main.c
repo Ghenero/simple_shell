@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- *Main - Main entry point to program.
+ *main - main entry point to program.
  *@argc: Argument count.
  *@argv: Argument vector.
  *Return: status code

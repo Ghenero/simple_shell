@@ -1,12 +1,12 @@
 #include "main.h"
 
-char *built_in_str[] = {"cd", "help", "exit"};
+const char *built_in_str[] = {"cd", "help", "exit"};
 
 /* list of function pointers to builtin commands function*/
-int (*built_in_func[]) (char **) = {&cmd_cd, &cmd_help, &cmd_exit};
+const int (*built_in_func[]) (char **) = {&cmd_cd, &cmd_help, &cmd_exit};
 
 /**
- * built_in_counts - Calculates sizeof array containing builtins.
+ * built_in_count - Calculates sizeof array containing builtins.
  * Return: int size of array
  */
 int built_in_count(void)
@@ -38,9 +38,9 @@ int cmd_help(char **args)
 }
 
 /**
- * hsh_exit - Builtin command: exit.
+ * cmd_exit - Builtin command: exit.
  * @args: List of args.  Non expected
- * return: Always returns 0, to terminate execution.
+ * Return: Always returns 0, to terminate execution.
  */
 int cmd_exit(char **args)
 {
