@@ -1,12 +1,12 @@
-#include "global_header.h"
+#include "main.h"
 
 /**
- *hsh_launch - Launch a program and wait for it to terminate.
+ *cmd_launch - Launch a program and wait for it to terminate.
  *@args: Null terminated list of arguments (including program).
  *
  *Return: Always 1, to continue execution.
  */
-int hsh_launch(char **args)
+int cmd_launch(char **args)
 {
 	pid_t pid;
 	int status;
@@ -17,14 +17,14 @@ int hsh_launch(char **args)
 		/* Child process */
 		if (execvp(args[0], args) == -1)
 		{
-			perror("hsh");
+			perror("PID = -1");
 		}
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
 	{
 		/* Error forking */
-		perror("hsh");
+		perror(args[0]);
 	}
 	else
 	{
@@ -38,11 +38,11 @@ int hsh_launch(char **args)
 }
 
 /**
- *hsh_read_line - Read a line of input from stdin.
+ *read_line - Read a line of input from stdin.
  *
  *Return: The line from stdin.
  */
-char *hsh_read_line(void)
+char *read_line(void)
 {
 #ifdef HSH_USE_STD_GETLINE
 	char *line = NULL;
@@ -104,7 +104,7 @@ char *hsh_read_line(void)
  *
  *Return: Null-terminated array of tokens.
  */
-char **hsh_split_line(char *line)
+char **get_tokens(char *line)
 {
 	int bufsize = HSH_TOK_BUFSIZE, position = 0;
 	char **tokens = malloc(bufsize * sizeof(char *));
@@ -144,17 +144,17 @@ char **hsh_split_line(char *line)
 /**
  *hsh_loop - Loop getting input and executing it.
  */
-void hsh_loop(void)
+void life_cycle(void)
 {
 	char *line;
 	char **args;
 	int status;
 
 	do {
-		printf("#CisFun$ ");
-		line = hsh_read_line();
-		args = hsh_split_line(line);
-		status = hsh_execute(args);
+		printf("$ ");
+		line = read_line();
+		args = get_tokens(line);
+		status = cmd_execute(args);
 
 		free(line);
 		free(args);

@@ -11,7 +11,7 @@ int (*built_in_func[]) (char **) = {&cmd_cd, &cmd_help, &cmd_exit};
  */
 int built_in_count(void)
 {
-	return (sizeof(builtin_str) / sizeof(char *));
+	return (sizeof(built_in_str) / sizeof(char *));
 }
 
 /**
@@ -37,7 +37,7 @@ int cmd_execute(char **args)
 		}
 	}
 
-	return (launch_cmd(args));
+	return (cmd_launch(args));
 }
 
 /**

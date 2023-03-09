@@ -1,4 +1,4 @@
-#include "global_header.h"
+#include "main.h"
 
 /**
  *Main - Main entry point to program.
@@ -10,12 +10,9 @@ int main(int argc, char *argv[])
 {
 
 	if (argc > 0 && argv[0] != NULL)
-		/* Run loop non-interactively. */
-		hsh_loop();
+		life_cycle();
 	else
-		/* Run command loop. */
-		hsh_loop();
+		life_cycle();
 
-	/* Perform any shutdown/cleanup. */
 	return (EXIT_SUCCESS);
 }
