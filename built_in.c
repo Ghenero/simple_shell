@@ -14,31 +14,6 @@ int built_in_count(void)
 	return (sizeof(built_in_str) / sizeof(char *));
 }
 
-/**
- * cmd_execute - Execute shell built-in or launch program
- * @args: Null terminated list of arguments.
- *
- * Return: 1 if the shell should continue running, 0 if it should terminate
- */
-int cmd_execute(char **args)
-{
-	int i;
-
-	if (args[0] == NULL)
-	{
-		return (1);
-	}
-
-	for (i = 0; i < built_in_count(); i++)
-	{
-		if (strcmp(args[0], built_in_str[i]) == 0)
-		{
-			return ((built_in_func[i])(args));
-		}
-	}
-
-	return (cmd_launch(args));
-}
 
 /**
  * cmd_cd - function for cd command
@@ -94,4 +69,30 @@ int cmd_exit(char **args)
 		return (0);
 	else
 		return (0);
+}
+
+/**
+ * cmd_execute - Execute shell built-in or launch program
+ * @args: Null terminated list of arguments.
+ *
+ * Return: 1 if the shell should continue running, 0 if it should terminate
+ */
+int cmd_execute(char **args)
+{
+	int i;
+
+	if (args[0] == NULL)
+	{
+		return (1);
+	}
+
+	for (i = 0; i < built_in_count(); i++)
+	{
+		if (strcmp(args[0], built_in_str[i]) == 0)
+		{
+			return ((built_in_func[i])(args));
+		}
+	}
+
+	return (run_command(args));
 }

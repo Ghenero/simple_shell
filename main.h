@@ -16,7 +16,7 @@ int cmd_help(char **args);
 int cmd_exit(char **args);
 
 int built_in_count(void);
-int cmd_launch(char **args);
+int run_command(char **args);
 int cmd_execute(char **args);
 char *read_line(void);
 char **get_tokens(char *line);

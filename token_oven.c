@@ -1,12 +1,12 @@
 #include "main.h"
 
 /**
- *cmd_launch - Launch a program and wait for it to terminate.
+ *run_command - Launch a program and wait for it to terminate.
  *@args: Null terminated list of arguments (including program).
  *
  *Return: Always 1, to continue execution.
  */
-int cmd_launch(char **args)
+int run_command(char **args)
 {
 	pid_t pid;
 	int status;
@@ -44,65 +44,26 @@ int cmd_launch(char **args)
  */
 char *read_line(void)
 {
-#ifdef HSH_USE_STD_GETLINE
 	char *line = NULL;
-	ssize_t bufsize = 0; /* have getline allocate a buffer for us */
+	size_t bufsize = 0;
 
-	getline(&line, &bufsize, stdin);
-	return (line);
-#else
-#define HSH_RL_BUFSIZE 1024
-	int bufsize = HSH_RL_BUFSIZE;
-	int position = 0;
-	char *buffer = malloc(sizeof(char) * bufsize);
-	int c;
-
-	if (!buffer)
-	{
-		fprintf(stderr, "hsh: allocation error\n");
-		exit(EXIT_FAILURE);
-	}
-
-	while (1)
-	{
-		/* Read a character */
-		c = getchar();
-
-		if (c == EOF)
-		{
+	if (getline(&line, &bufsize, stdin) == -1){
+		if (feof(stdin)) {
 			exit(EXIT_SUCCESS);
-		}
-		else if (c == '\n')
-		{
-			buffer[position] = '\0';
-			return (buffer);
-		}
-		else
-		{
-			buffer[position] = c;
-		}
-		position++;
-
-		/* If we have exceeded the buffer, reallocate. */
-		if (position >= bufsize)
-		{
-			bufsize += HSH_RL_BUFSIZE;
-			buffer = realloc(buffer, bufsize);
-			if (!buffer)
-			{
-				fprintf(stderr, "hsh: allocation error\n");
-				exit(EXIT_FAILURE);
-			}
+		} else  {
+			perror("readline");
+			exit(EXIT_FAILURE);
 		}
 	}
-#endif
+
+	return line;
 }
 
 /**
- *hsh_split_line - Split a line into tokens (very naively).
- *@line: The line.
+ * get_tokens - Split a line into tokens (very naively).
+ * @line: one line of string.
  *
- *Return: Null-terminated array of tokens.
+ * Return: Null-terminated array of tokens.
  */
 char **get_tokens(char *line)
 {
@@ -151,7 +112,7 @@ void life_cycle(void)
 	int status;
 
 	do {
-		printf("$ ");
+		printf("#cisfun$ ");
 		line = read_line();
 		args = get_tokens(line);
 		status = cmd_execute(args);
